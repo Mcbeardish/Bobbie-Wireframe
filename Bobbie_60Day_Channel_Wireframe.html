@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bobbie YouTube Channel — Future State Wireframe</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; background: #f5f0eb; color: #2d2a26; }
+
+  :root {
+    --cream: #f5f0eb;
+    --blush: #e8c4b8;
+    --sage: #7a9e7e;
+    --sage-light: #d4e4d6;
+    --terracotta: #c9705b;
+    --charcoal: #2d2a26;
+    --warm-gray: #8a857e;
+    --white: #ffffff;
+    --yt-red: #ff0000;
+  }
+
+  .page-header {
+    text-align: center;
+    padding: 60px 40px 40px;
+  }
+  .page-header h1 {
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: var(--charcoal);
+  }
+  .page-header .subtitle {
+    font-size: 15px;
+    color: var(--warm-gray);
+    margin-top: 8px;
+    max-width: 680px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.5;
+  }
+
+  /* Phase section */
+  .phase {
+    max-width: 1100px;
+    margin: 0 auto 64px;
+    padding: 0 24px;
+  }
+  .phase-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--charcoal);
+    color: var(--white);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+  }
+  .phase-label .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+  }
+  .phase-label .dot.green { background: var(--sage); }
+
+  .phase-title { font-size: 24px; font-weight: 700; margin-bottom: 6px; }
+  .phase-desc {
+    font-size: 14px;
+    color: var(--warm-gray);
+    margin-bottom: 24px;
+    max-width: 700px;
+    line-height: 1.5;
+  }
+
+  /* YouTube channel mock */
+  .yt-channel {
+    background: var(--white);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+  }
+
+  .yt-banner {
+    height: 180px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .yt-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  .yt-banner .banner-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .yt-banner .banner-text {
+    font-size: 20px;
+    font-weight: 600;
+    color: white;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+    z-index: 1;
+    text-align: center;
+    line-height: 1.4;
+  }
+  .yt-banner .banner-text small {
+    display: block;
+    font-size: 12px;
+    font-weight: 400;
+    opacity: 0.85;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .yt-info {
+    display: flex;
+    align-items: center;
+    padding: 20px 28px;
+    gap: 16px;
+    border-bottom: 1px solid #eee;
+    flex-wrap: wrap;
+  }
+  .yt-avatar {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: var(--sage);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; font-weight: 700; color: var(--white);
+    flex-shrink: 0;
+  }
+  .yt-info-text { flex: 1; min-width: 200px; }
+  .yt-info-text h3 { font-size: 18px; font-weight: 700; }
+  .yt-info-text .meta { font-size: 13px; color: var(--warm-gray); margin-top: 2px; }
+  .subscribe-btn {
+    background: var(--yt-red);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: default;
+  }
+
+  .yt-tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid #eee;
+    padding: 0 28px;
+    overflow-x: auto;
+  }
+  .yt-tab {
+    padding: 14px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--warm-gray);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+  }
+  .yt-tab.active {
+    color: var(--charcoal);
+    border-bottom-color: var(--charcoal);
+  }
+
+  .yt-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+    padding: 24px 28px;
+  }
+
+  .yt-video { cursor: default; }
+  .yt-thumb {
+    width: 100%;
+    aspect-ratio: 16/9;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    background: #ddd;
+  }
+  .yt-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .yt-thumb .duration {
+    position: absolute;
+    bottom: 6px;
+    right: 6px;
+    background: rgba(0,0,0,0.8);
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 3px;
+  }
+  .yt-video-info { padding: 10px 2px 0; }
+  .yt-video-info h4 {
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.35;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .yt-video-info .vid-meta {
+    font-size: 12px;
+    color: var(--warm-gray);
+    margin-top: 4px;
+  }
+
+  .yt-section-header {
+    padding: 20px 28px 8px;
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .yt-section-sub {
+    padding: 0 28px 12px;
+    font-size: 13px;
+    color: var(--warm-gray);
+  }
+  .yt-divider { border-top: 1px solid #eee; margin: 8px 28px; }
+
+  /* Playlist section */
+  .playlist-row {
+    display: flex;
+    gap: 12px;
+    padding: 0 28px 20px;
+    overflow-x: auto;
+  }
+  .playlist-card {
+    width: 200px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #eee;
+  }
+  .playlist-thumb {
+    width: 200px;
+    height: 112px;
+    position: relative;
+    overflow: hidden;
+    background: #ccc;
+  }
+  .playlist-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .playlist-thumb .count-badge {
+    position: absolute;
+    right: 0; top: 0; bottom: 0;
+    width: 50px;
+    background: rgba(0,0,0,0.72);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .playlist-thumb .count-badge small {
+    font-size: 9px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .playlist-info { padding: 10px; background: var(--white); }
+  .playlist-info h4 { font-size: 12px; font-weight: 600; }
+  .playlist-info .vid-meta { font-size: 11px; color: var(--warm-gray); margin-top: 2px; }
+
+  /* Change tag */
+  .change-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-bottom: 4px;
+  }
+  .change-tag.kept { background: #eee; color: #888; }
+  .change-tag.recut { background: #d4eef8; color: #2a7da5; }
+  .change-tag.new-vid { background: #d4f0d6; color: #3a8a40; }
+
+  .stats-bar {
+    display: flex;
+    gap: 12px;
+    padding: 16px 28px;
+    background: #faf8f5;
+    border-top: 1px solid #eee;
+    flex-wrap: wrap;
+  }
+  .stat {
+    flex: 1;
+    min-width: 130px;
+    background: var(--white);
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 14px 16px;
+    text-align: center;
+  }
+  .stat .stat-val { font-size: 22px; font-weight: 700; color: var(--charcoal); }
+  .stat .stat-label {
+    font-size: 11px;
+    color: var(--warm-gray);
+    margin-top: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+  .stat .stat-delta { font-size: 11px; margin-top: 4px; font-weight: 600; }
+  .stat .stat-delta.up { color: var(--sage); }
+
+  .phase-notes {
+    margin-top: 16px;
+    background: var(--white);
+    border-left: 3px solid var(--sage);
+    border-radius: 0 10px 10px 0;
+    padding: 16px 20px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #555;
+  }
+  .phase-notes strong { color: var(--charcoal); }
+
+  .page-footer {
+    text-align: center;
+    padding: 20px 40px 60px;
+    font-size: 12px;
+    color: var(--warm-gray);
+  }
+
+  /* AEO badge overlay on thumbnails */
+  .aeo-badge {
+    position: absolute;
+    top: 7px;
+    left: 7px;
+    background: rgba(26,107,53,0.88);
+    color: white;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    padding: 3px 7px;
+    border-radius: 4px;
+    text-transform: uppercase;
+  }
+  .rank-badge {
+    position: absolute;
+    top: 7px;
+    left: 7px;
+    background: rgba(42,125,165,0.88);
+    color: white;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    padding: 3px 7px;
+    border-radius: 4px;
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="page-header">
+  <h1>Bobbie YouTube Channel — Future State</h1>
+  <p class="subtitle">A possible future channel look — two distinct layers: existing brand content alongside a growing AEO-optimized search library. Playlists organized around query intent. New content surfacing in YouTube search and AI Overviews.</p>
+</div>
+
+<div class="phase">
+  <div class="phase-label"><span class="dot green"></span> Future State</div>
+  <h2 class="phase-title">Where the Channel Could Go</h2>
+  <p class="phase-desc">The channel splits into two visible layers: the existing brand content and a growing AEO-optimized search library. Playlists reorganized around query intent. YouTube search picks up the new content. AI Overview citations begin appearing.</p>
+
+  <div class="yt-channel">
+
+    <!-- Banner -->
+    <div class="yt-banner">
+      <img src="BANNER%20IMAGE.png" alt="Bobbie Channel Banner">
+      <div class="banner-overlay">
+        <div class="banner-text">
+          <small>Organic Baby Formula — Expert-Backed Content for Parents</small>
+          Bobbie Infant Formula
+        </div>
+      </div>
+    </div>
+
+    <!-- Channel info -->
+    <div class="yt-info">
+      <div class="yt-avatar">B</div>
+      <div class="yt-info-text">
+        <h3>Bobbie Infant Formula</h3>
+        <div class="meta">@bobbieformula &nbsp;·&nbsp; ~4.5K subscribers &nbsp;·&nbsp; 441 videos</div>
+      </div>
+      <button class="subscribe-btn">Subscribe</button>
+    </div>
+
+    <!-- Tabs -->
+    <div class="yt-tabs">
+      <div class="yt-tab active">Home</div>
+      <div class="yt-tab">Videos</div>
+      <div class="yt-tab">Shorts</div>
+      <div class="yt-tab">Podcasts</div>
+      <div class="yt-tab">Playlists</div>
+    </div>
+
+    <!-- ── Playlists ── -->
+    <div class="yt-section-header">Playlists — Reorganized by Parent Need</div>
+    <div class="yt-section-sub">Existing playlists kept, new AEO-focused playlists added to create clear query clusters alongside brand content.</div>
+    <div class="playlist-row">
+
+      <div class="playlist-card">
+        <div class="playlist-thumb">
+          <img src="Formula%20Safety%20%26%20Recalls.png" alt="Formula Safety">
+          <div class="count-badge">6<br><small>videos</small></div>
+        </div>
+        <div class="playlist-info">
+          <h4>Formula Safety &amp; Recalls</h4>
+          <div class="vid-meta">NEW playlist — merges Safety 101 + new AEO content</div>
+        </div>
+      </div>
+
+      <div class="playlist-card">
+        <div class="playlist-thumb">
+          <img src="How%20to%20chose%20formula.png" alt="How to Choose Formula">
+          <div class="count-badge">5<br><small>videos</small></div>
+        </div>
+        <div class="playlist-info">
+          <h4>How to Choose Formula</h4>
+          <div class="vid-meta">NEW playlist — comparison + decision content</div>
+        </div>
+      </div>
+
+      <div class="playlist-card">
+        <div class="playlist-thumb">
+          <img src="New%20Parent%20Feeding%20Guides.jpg" alt="New Parent Feeding Guides">
+          <div class="count-badge">5<br><small>videos</small></div>
+        </div>
+        <div class="playlist-info">
+          <h4>New Parent Feeding Guides</h4>
+          <div class="vid-meta">NEW — combo feeding, switching, supplementing</div>
+        </div>
+      </div>
+
+      <div class="playlist-card">
+        <div class="playlist-thumb">
+          <img src="The%20Scoop%20by%20Bobbie.png" alt="The Scoop by Bobbie">
+          <div class="count-badge">7<br><small>videos</small></div>
+        </div>
+        <div class="playlist-info">
+          <h4>The Scoop by Bobbie</h4>
+          <div class="vid-meta">EXISTING — Tan France, Ashley I., etc.</div>
+        </div>
+      </div>
+
+      <div class="playlist-card">
+        <div class="playlist-thumb">
+          <img src="Milk%20Drunk%20Podcast.jpg" alt="Milk Drunk Podcast">
+          <div class="count-badge">36<br><small>eps</small></div>
+        </div>
+        <div class="playlist-info">
+          <h4>Milk Drunk Podcast</h4>
+          <div class="vid-meta">EXISTING — authority pillar</div>
+        </div>
+      </div>
+
+      <div class="playlist-card">
+        <div class="playlist-thumb">
+          <img src="maxresdefault.jpg" alt="Cardi B Campaign">
+          <div class="count-badge">3<br><small>videos</small></div>
+        </div>
+        <div class="playlist-info">
+          <h4>Cardi B: The B Is For Bobbie</h4>
+          <div class="vid-meta">EXISTING — campaign content</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="yt-divider"></div>
+
+    <!-- ── Gaining Traction ── -->
+    <div class="yt-section-header">Gaining Traction</div>
+    <div class="yt-section-sub">AEO-optimized videos ranking in YouTube search. AI Overview citations appearing for key parent queries.</div>
+    <div class="yt-grid">
+
+      <div class="yt-video">
+        <span class="change-tag recut">Re-cut · AEO cited</span>
+        <div class="yt-thumb">
+          <img src="Is%20your%20baby%20formula%20safe.jpg" alt="Is Your Baby Formula Safe">
+          <div class="aeo-badge">AEO Cited ✓</div>
+          <div class="duration">8:12</div>
+        </div>
+        <div class="yt-video-info">
+          <h4>Is Your Baby Formula Safe? What Every Parent Should Know</h4>
+          <div class="vid-meta">3.2K views · Appearing in AI Overviews</div>
+        </div>
+      </div>
+
+      <div class="yt-video">
+        <span class="change-tag recut">Re-cut · Ranking</span>
+        <div class="yt-thumb">
+          <img src="Which%20formula%20is%20closest%20to%20breastmilk%20.jpg" alt="Which Formula Is Closest to Breast Milk">
+          <div class="rank-badge">Search Ranking ↑</div>
+          <div class="duration">10:34</div>
+        </div>
+        <div class="yt-video-info">
+          <h4>Which Formula Is Closest to Breast Milk? (Honest Comparison)</h4>
+          <div class="vid-meta">2.4K views · YouTube search impressions climbing</div>
+        </div>
+      </div>
+
+      <div class="yt-video">
+        <span class="change-tag new-vid">New</span>
+        <div class="yt-thumb">
+          <img src="Bobbie_formula_scoop.jpg" alt="Bobbie vs Enfamil">
+          <div class="duration">9:15</div>
+        </div>
+        <div class="yt-video-info">
+          <h4>Bobbie vs Enfamil: An Honest Side-by-Side Comparison</h4>
+          <div class="vid-meta">1.8K views · 3 weeks ago</div>
+        </div>
+      </div>
+
+      <div class="yt-video">
+        <span class="change-tag recut">Re-cut</span>
+        <div class="yt-thumb">
+          <img src="Combo%20Feeding%20101%20how%20to%20supplement.jpg" alt="Supplementing Breastfeeding">
+          <div class="aeo-badge">AEO Optimized</div>
+          <div class="duration">7:02</div>
+        </div>
+        <div class="yt-video-info">
+          <h4>Supplementing Breastfeeding with Formula (Step-by-Step)</h4>
+          <div class="vid-meta">1.1K views · Pulling from podcast clips</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="yt-divider"></div>
+
+    <!-- ── Existing Evergreen ── -->
+    <div class="yt-section-header">Existing Evergreen (Still Performing)</div>
+    <div class="yt-grid">
+
+      <div class="yt-video">
+        <span class="change-tag kept">Existing</span>
+        <div class="yt-thumb">
+          <img src="Ashley%20Iaconetti%27s%20Journey%20Through%20Love%20After%20Baby.jpg" alt="Ashley Iaconetti">
+          <div class="duration">4:12</div>
+        </div>
+        <div class="yt-video-info">
+          <h4>Ashley Iaconetti's Journey Through Love After Baby | The Scoop</h4>
+          <div class="vid-meta">12K views · 2 years ago · Still driving traffic</div>
+        </div>
+      </div>
+
+      <div class="yt-video">
+        <span class="change-tag kept">Existing</span>
+        <div class="yt-thumb">
+          <img src="Trusting%20yourself%20as%20a%20new%20parent.jpg" alt="Tan France">
+          <div class="duration">3:03</div>
+        </div>
+        <div class="yt-video-info">
+          <h4>Trusting Yourself as a New Parent | Tan France</h4>
+          <div class="vid-meta">7.3K views · 3 years ago</div>
+        </div>
+      </div>
+
+      <div class="yt-video">
+        <span class="change-tag kept">Existing</span>
+        <div class="yt-thumb">
+          <img src="Combo%20Feeding%20101%20Breast%20Bottle%20Both%20Milk%20Drunk%20.jpg" alt="Combo Feeding 101 Milk Drunk">
+          <div class="duration">46:03</div>
+        </div>
+        <div class="yt-video-info">
+          <h4>Combo Feeding 101: Breast, Bottle, Both | Milk Drunk</h4>
+          <div class="vid-meta">5.3K views · 2 years ago</div>
+        </div>
+      </div>
+
+      <div class="yt-video">
+        <span class="change-tag kept">Existing</span>
+        <div class="yt-thumb">
+          <img src="Embracing%20my%20Postpartum%20Body%20.png" alt="Embracing my Postpartum Body">
+          <div class="duration">2:59</div>
+        </div>
+        <div class="yt-video-info">
+          <h4>Embracing my Postpartum Body | Andreea Gaul</h4>
+          <div class="vid-meta">3.2K views · 3 years ago</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Stats bar -->
+    <div class="stats-bar">
+      <div class="stat">
+        <div class="stat-val">~4.5K</div>
+        <div class="stat-label">Subscribers</div>
+        <div class="stat-delta up">+15% from 3.88K</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val">~441</div>
+        <div class="stat-label">Total Videos</div>
+        <div class="stat-delta up">+20 AEO videos</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val">~65%</div>
+        <div class="stat-label">AI Citation Rate</div>
+        <div class="stat-delta up">+5% from baseline</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val">2x</div>
+        <div class="stat-label">Search Impressions</div>
+        <div class="stat-delta up">Growing WoW</div>
+      </div>
+    </div>
+
+  </div><!-- end .yt-channel -->
+
+  <div class="phase-notes">
+    <strong>What success looks like:</strong> The new AEO-optimized layer is working — YouTube search impressions are trending up and the first 2–3 priority queries show Bobbie content in AI Overviews. The existing content (Scoop, Milk Drunk, Cardi B) continues to provide channel authority. Key decision point: if search impressions grow but AI citations don't, revisit metadata alignment and medical reviewer trust signals.
+  </div>
+
+</div>
+
+<div class="page-footer">Bobbie YouTube Channel Wireframe · Day 60 · For internal use only</div>
+
+</body>
+</html>
